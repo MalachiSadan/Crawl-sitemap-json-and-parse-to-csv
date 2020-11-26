@@ -1,38 +1,35 @@
 import json
 
 with open("roku.sitemap.txt", "r") as sitemap_txt:
-    cnt_da_lp = 0
-    with open(f"ROKU_SITEMAP_CSV_RESULT\\roku_csv.csv", "x") as sitemap_csv:
+    cnt_da_lp = 0 
+    with open(f"ROKU_SITEMAP_CSV_RESULT\\roku_csv.csv", "x") as sitemap_csv:  # create the csv file
         sitemap_csv.write("channelId,name,starRating,starRatingCount,description,developer,developerUserId"
-                          ",publishedDate,createdDate,modifiedDate,storeId")
+                          ",publishedDate,createdDate,modifiedDate,storeId")  # add the names of the colmuns
         while True:
             sitemap_csv.write("\n")
             readlin = sitemap_txt.readline()
             cnt_da_lp += 1
-            #     if cnt_da_lp >= 18193:
             if readlin == "":
                 break
-            with open(f"ROKU_SITEMAP_JSON\\{readlin[59:-24]}.json", "r") as test_json:
+            with open(f"ROKU_SITEMAP_JSON\\{readlin[59:-24]}.json", "r") as test_json:  # open the JSON file for loading the data
                 sv = test_json.read()
-                if "\\" in sv:
-                    sv = sv.replace("\\", "/")
-                if cnt_da_lp > 780:
-                    if '//","k' in sv:
-                        sv = sv.replace('//","k', '","k')
-                    if '//","h' in sv:
-                        sv = sv.replace('//","h', '","h')
-                    if '//"' in sv:
-                        sv = sv.replace('//"', "//")
-                # print(sv)
+                if "\\" in sv:  # replacing strings for avoiding JSON parsing erroes.
+                    sv = sv.replace("\\", "/")  # they are really annoying
+                if '//","k' in sv:
+                    sv = sv.replace('//","k', '","k')
+                if '//","h' in sv:
+                    sv = sv.replace('//","h', '","h')
+                if '//"' in sv:
+                    sv = sv.replace('//"', "//")
                 test_json.close()
             with open(f"ROKU_SITEMAP_JSON\\{readlin[59:-24]}.json", "w") as json_write:
+                # ^ replace file content with sv(the formatted JSON varible) ^
                 json_write.truncate()
                 json_write.write(str(sv))
                 json_write.close()
 
             with open(f"ROKU_SITEMAP_JSON\\{readlin[59:-24]}.json", "r") as sitemap_json:
                 data1 = dict(json.load(sitemap_json))
-                # print(data1)
                 sitemap_json.close()
 
                 feed = dict(data1)["feedChannel"]
