@@ -29,4 +29,4 @@ with open(f"ROKU_SITEMAP_JSON\\{readlin[59:-24]}.json"
 's, you need to create a folder to save the JSON files, and change the index of the ID that you need.
 Don't forget to update the sitemap.txt or use anotherone.
 
-##### If you have any issues please open one. I will try to help.
+##### If you have any issues please open an issue. I will try to help.
