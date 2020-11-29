@@ -1,14 +1,14 @@
 import json
 
 with open("roku.sitemap.txt", "r") as sitemap_txt:
-    cnt_da_lp = 0 
+    count_the_loop = 0 
     with open(f"ROKU_SITEMAP_CSV_RESULT\\roku_csv.csv", "x") as sitemap_csv:  # create the csv file
         sitemap_csv.write("channelId,name,starRating,starRatingCount,description,developer,developerUserId"
                           ",publishedDate,createdDate,modifiedDate,storeId")  # add the names of the colmuns
         while True:
             sitemap_csv.write("\n")
             readlin = sitemap_txt.readline()
-            cnt_da_lp += 1
+            count_the_loop += 1
             if readlin == "":
                 break
             with open(f"ROKU_SITEMAP_JSON\\{readlin[59:-24]}.json", "r") as test_json:  # open the JSON file for loading the data
@@ -48,6 +48,6 @@ with open("roku.sitemap.txt", "r") as sitemap_txt:
                     sitemap_csv.write(str(j) + ",")
                 for k in detail_vals.values():
                     sitemap_csv.write(str(k) + ",")
-            print(cnt_da_lp)
+            print(count_the_loop)
         sitemap_csv.close()
     sitemap_txt.close()
