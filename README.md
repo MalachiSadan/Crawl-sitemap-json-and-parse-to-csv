@@ -1,6 +1,8 @@
 # Crawl sitemap json
 [Python 3.6 recommended]
+
 [urllib3 required]
+
 For this project, I chose to crawl the roku marketplace json.
 I added a .txt file of all the channels(May not be updated), and started crawling.
 
@@ -12,7 +14,7 @@ if '//","k' in sv:
     sv = sv.replace('//","k', '","k')
 ```
 That means that if there's a string: //","k in the JSON it will replace it with: ","k , replacing the //. I replaced it becuase i had a lot of parsing errors with //",
-That for some reason showd a lot in the JSON files description. Now i had errors becuase i deleted the " thing where that // was in the end of the file.  I know there's a "kewords" sentence at the end of the value, so i added a k and removed the // so it wont detect it and replace it (the line
+That for some reason showd a lot in the JSON files description. Now i had errors becuase i deleted the " thing where that // was in the end of the file.  I know there's a "kewords" sentence at the end of the value, so i added a k and removed the // so it wont detect it and replace it (in the line
 ```
 if '//"' in sv:
     sv = sv.replace('//"', "//")
